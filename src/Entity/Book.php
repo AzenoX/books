@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
@@ -19,39 +22,51 @@ class Book
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"book_get"})
      */
     private $titre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"book_get"}) 
      */
     private $auteur;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"book_get"})
      */
     private $genre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"book_get"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"book_get"})
      */
     private $quantite;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"book_get"})
      */
     private $prix;
 
     //ajouter cascade={"persist"} pour le problem de liaison enter categorie et book
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="books", cascade={"persist"})
+     * @Groups({"book_get"})
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
 
     public function getId(): ?int
     {
@@ -138,6 +153,18 @@ class Book
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
