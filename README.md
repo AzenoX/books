@@ -1,4 +1,4 @@
 # books
-books.azenox.fr
+azenox.fr/books
 
 coucou alexis c'est dorothée
